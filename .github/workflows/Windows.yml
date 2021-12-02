@@ -9,11 +9,15 @@ jobs:
 
       - uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Checkout
+      - name: Download XMRig Dependencies
         uses: actions/checkout@v2 
         with:
           repository: 'xmrig/xmrig-deps'
           path: 'xmrig-deps'
+
+      - run: |
+          $XmRigDeps = Join-Path $PSScriptRoot "xmrig-deps\msvc2019\x64"
+          echo "XMRig Deps: $XmRigDeps"
 
       - name: Install dependencies
         run: |
@@ -30,13 +34,11 @@ jobs:
       - name: Create build directory
         run: |
           mkdir ./build   
-           
 
       - name: Configure CMake
         run: |
-          $XmRigDeps = Join-Path $PSScriptRoot xmrig-deps\msvc2019\x64
           cd ./build  
-          cmake ../ -G "Visual Studio 16 2019" -A x64 -DWITH_HTTPD=OFF -DCUDA_ARCH=50 -DXMRIG_DEPS=$XmRigDeps
+          cmake ../ -G "Visual Studio 16 2019" -A x64 -DWITH_HTTPD=OFF -DCUDA_ARCH="50" -DXMRIG_DEPS="$XmRigDeps"
 
       - name: Compile
         run: |
