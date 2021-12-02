@@ -7,13 +7,6 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - uses: Jimver/cuda-toolkit@v0.2.5
-        id: cuda-toolkit
-        with:
-          cuda: '11.5.1'
-          linux-local-args: '["--toolkit"]'      
-      - run: nvcc -V      
-
       - name: Checkout
         uses: actions/checkout@v2      
 
@@ -28,6 +21,13 @@ jobs:
             openssl
             libmicrohttpd
             base-devel
+
+      - uses: Jimver/cuda-toolkit@v0.2.5
+        id: cuda-toolkit
+        with:
+          cuda: '11.5.1'
+          linux-local-args: '["--toolkit"]'      
+      - run: nvcc -V
 
       - name: Create build directory
         run: mkdir ${{github.workspace}}/build      
