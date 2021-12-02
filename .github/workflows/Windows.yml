@@ -36,7 +36,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd ./build
-          cmake ../ -DWITH_HTTPD=OFF -DCUDA_ARCH=50
+          cmake ../ -G "Unix Makefiles" -DWITH_HTTPD=OFF -DCUDA_ARCH=50
 
       - name: Run make
         shell: msys2 {0}
