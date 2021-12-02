@@ -23,6 +23,7 @@ jobs:
             base-devel
 
       - uses: Jimver/cuda-toolkit@v0.2.5
+        shell: pwsh
         id: cuda-toolkit
         with:
           cuda: '11.5.1'
