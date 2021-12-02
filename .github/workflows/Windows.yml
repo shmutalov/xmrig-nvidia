@@ -15,10 +15,6 @@ jobs:
           repository: 'xmrig/xmrig-deps'
           path: 'xmrig-deps'
 
-      - run: |
-          $XmRigDeps = Join-Path "${{ github.workspace }}" "xmrig-deps\msvc2019\x64"
-          echo "XMRig Deps: $XmRigDeps"
-
       - name: Install dependencies
         run: |
           choco install ninja
@@ -37,6 +33,7 @@ jobs:
 
       - name: Configure CMake
         run: |
+          $XmRigDeps = Join-Path "${{ github.workspace }}" "xmrig-deps\msvc2019\x64"
           cd ./build  
           cmake ../ -G "Visual Studio 16 2019" -A x64 -DWITH_HTTPD=OFF -DCUDA_ARCH="50" -DXMRIG_DEPS="$XmRigDeps"
 
