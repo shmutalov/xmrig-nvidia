@@ -2,26 +2,21 @@ name: Windows
 on: push
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - name: Checkout
         uses: actions/checkout@v2      
 
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2 
+        repository: 'xmrig/xmrig-deps'
+        path: 'xmrig-deps'
+
       - name: Install dependencies
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          release: true
-          install: >-
-            mingw-w64-x86_64-libuv
-            mingw-w64-x86_64-hwloc
-            mingw-w64-x86_64-openssl
-            mingw-w64-x86_64-libmicrohttpd
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-ninja
-            mingw-w64-x86_64-gcc
-            base-devel
-            git
+        run: |
+          choco install ninja
 
       - uses: Jimver/cuda-toolkit@v0.2.5
         id: cuda-toolkit
@@ -29,24 +24,26 @@ jobs:
           cuda: '11.5.1'
           linux-local-args: '["--toolkit"]'     
 
+      - run: nvcc -V
+
       - name: Create build directory
-        run: mkdir ./build      
+        run: |
+          mkdir ./build   
+           
 
       - name: Configure CMake
-        shell: msys2 {0}
         run: |
-          cd ./build
-          cmake ../ -G "Unix Makefiles" -DWITH_HTTPD=OFF -DCUDA_ARCH=50
+          $XmRigDeps = Join-Path $PSScriptRoot xmrig-deps\msvc2019\x64
+          cd ./build  
+          cmake ../ -G "Visual Studio 16 2019" -A x64 -DWITH_HTTPD=OFF -DCUDA_ARCH=50 -DXMRIG_DEPS=$XmRigDeps
 
-      - name: Run make
-        shell: msys2 {0}
+      - name: Compile
         run: |
-          cd ./build
-          make -j      
+          cmake --build . --config Release    
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.event.repository.name }}-windows-latest
           path: |
-            ./build/xmrig-nvidia.exe
+            ./xmrig-nvidia.exe
