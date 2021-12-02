@@ -19,6 +19,7 @@ jobs:
             mingw-w64-x86_64-libmicrohttpd
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-gcc
             base-devel
             git
 
@@ -27,8 +28,6 @@ jobs:
         with:
           cuda: '11.5.1'
           linux-local-args: '["--toolkit"]'     
-
-      - run: nvcc -V
 
       - name: Create build directory
         run: mkdir ./build      
@@ -42,11 +41,6 @@ jobs:
       - name: Run make
         shell: msys2 {0}
         run: make -j      
-
-      #- name: Run Test
-      #  working-directory: ${{github.workspace}}/build
-      #  run: ctest --no-compress-output -T Test -C Release --output-on-failure
-      - run: echo "This job's status is ${{ job.status }}."
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2

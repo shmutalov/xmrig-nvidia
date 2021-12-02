@@ -9,8 +9,7 @@ jobs:
         with:
           cuda: '11.5.1'
           linux-local-args: '["--toolkit"]'      
-      - run: nvcc -V      
-
+ 
       - name: Checkout
         uses: actions/checkout@v2      
 
@@ -28,9 +27,6 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: make -j      
 
-      #- name: Run Test
-      #  working-directory: ${{github.workspace}}/build
-      #  run: ctest --no-compress-output -T Test -C Release --output-on-failure
       - run: echo "This job's status is ${{ job.status }}."
 
       - name: Archive production artifacts
