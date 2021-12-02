@@ -23,8 +23,9 @@ jobs:
         id: cuda-toolkit
         with:
           cuda: '11.5.1'
-          linux-local-args: '["--toolkit"]'      
-        run: nvcc -V
+          linux-local-args: '["--toolkit"]'     
+           
+      - run: nvcc -V
 
       - name: Create build directory
         run: mkdir ./build      
