@@ -16,9 +16,9 @@ jobs:
           msystem: MINGW64
           release: true
           install: >-
-            libuv
-            hwloc
-            openssl
+            mingw-w64-x86_64-libuv
+            mingw-w64-x86_64-hwloc
+            mingw-w64-x86_64-openssl
             mingw-w64-x86_64-libmicrohttpd
             base-devel
 
