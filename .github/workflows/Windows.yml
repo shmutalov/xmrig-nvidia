@@ -23,12 +23,12 @@ jobs:
             base-devel
 
       - uses: Jimver/cuda-toolkit@v0.2.5
-        shell: pwsh {0}
         id: cuda-toolkit
         with:
           cuda: '11.5.1'
           linux-local-args: '["--toolkit"]'      
-      - run: nvcc -V
+      - shell: pwsh {0}
+        run: nvcc -V
 
       - name: Create build directory
         run: mkdir ${{github.workspace}}/build      
