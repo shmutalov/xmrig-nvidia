@@ -3,9 +3,6 @@ on: push
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
       - name: Checkout
         uses: actions/checkout@v2      
@@ -27,18 +24,19 @@ jobs:
         with:
           cuda: '11.5.1'
           linux-local-args: '["--toolkit"]'      
-      - shell: pwsh {0}
         run: nvcc -V
 
       - name: Create build directory
-        run: mkdir ${{github.workspace}}/build      
+        run: mkdir ./build      
 
       - name: Configure CMake
-        working-directory: ${{github.workspace}}/build
-        run: cmake ../ -DWITH_HTTPD=OFF -DCUDA_ARCH=50
+        shell: msys2 {0}
+        run: |
+          cd ./build
+          cmake ../ -DWITH_HTTPD=OFF -DCUDA_ARCH=50
 
       - name: Run make
-        working-directory: ${{github.workspace}}/build
+        shell: msys2 {0}
         run: make -j      
 
       #- name: Run Test
