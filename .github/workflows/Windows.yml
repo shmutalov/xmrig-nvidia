@@ -19,7 +19,7 @@ jobs:
             libuv
             hwloc
             openssl
-            libmicrohttpd
+            mingw-w64-x86_64-libmicrohttpd
             base-devel
 
       - uses: Jimver/cuda-toolkit@v0.2.5
