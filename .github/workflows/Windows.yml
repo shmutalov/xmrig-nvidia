@@ -39,6 +39,7 @@ jobs:
 
       - name: Compile
         run: |
+          rm ../CMakeCache.txt
           cmake --build . --config Release    
 
       - name: Archive production artifacts
