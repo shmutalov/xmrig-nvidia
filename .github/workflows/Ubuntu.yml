@@ -38,4 +38,4 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}-${{ runner.name }}
           path: |
-            ./xmrig-nvidia
+            ./build/xmrig-nvidia
