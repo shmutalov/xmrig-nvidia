@@ -18,6 +18,7 @@ jobs:
             mingw-w64-x86_64-openssl
             mingw-w64-x86_64-libmicrohttpd
             mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
             base-devel
             git
 
