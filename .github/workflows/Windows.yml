@@ -16,7 +16,7 @@ jobs:
           path: 'xmrig-deps'
 
       - run: |
-          $XmRigDeps = Join-Path $PSScriptRoot "xmrig-deps\msvc2019\x64"
+          $XmRigDeps = Join-Path "${{ github.workspace }}" "xmrig-deps\msvc2019\x64"
           echo "XMRig Deps: $XmRigDeps"
 
       - name: Install dependencies
