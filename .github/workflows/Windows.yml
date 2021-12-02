@@ -11,8 +11,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2 
-        repository: 'xmrig/xmrig-deps'
-        path: 'xmrig-deps'
+        with:
+          repository: 'xmrig/xmrig-deps'
+          path: 'xmrig-deps'
 
       - name: Install dependencies
         run: |
